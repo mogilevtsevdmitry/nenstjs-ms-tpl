@@ -23,6 +23,12 @@
       ],
       "@connectors/*": [
         "libs/connectors/src/*"
+      ],
+      "@common": [
+        "libs/common/src"
+      ],
+      "@common/*": [
+        "libs/common/src/*"
       ]
     }
   }

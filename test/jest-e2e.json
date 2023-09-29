@@ -12,6 +12,8 @@
   },
   "moduleNameMapper": {
     "@connectors/connectors/(.*)": "<rootDir>/../libs/connectors/src/$1",
-    "@connectors/connectors": "<rootDir>/../libs/connectors/src"
+    "@connectors/connectors": "<rootDir>/../libs/connectors/src",
+    "@common/common/(.*)": "<rootDir>/../libs/common/src/$1",
+    "@common/common": "<rootDir>/../libs/common/src"
   }
 }

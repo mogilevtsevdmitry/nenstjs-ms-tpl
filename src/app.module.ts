@@ -1,4 +1,5 @@
 import { join } from 'path';
+import { CommonModule } from '@common';
 import { ConnectorsModule } from '@connectors';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -10,6 +11,7 @@ import { ConfigModule } from '@nestjs/config';
             isGlobal: true,
             envFilePath: join(process.cwd(), '.env'),
         }),
+        CommonModule,
     ],
     providers: [],
 })
