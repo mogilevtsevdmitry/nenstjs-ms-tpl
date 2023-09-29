@@ -1,8 +1,9 @@
 import { APP_NAME } from '@common/constants';
 import { LOGGER_CONFIG } from '@common/main-logger';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import { json } from 'express';
 import { WinstonModule } from 'nest-winston';
@@ -23,6 +24,13 @@ async function bootstrap() {
     app.useGlobalPipes(new ValidationPipe());
 
     app.enableShutdownHooks();
+
+    app.use(compression());
+
+    app.enableVersioning({
+        type: VersioningType.HEADER,
+        header: 'X-Version',
+    });
 
     await app.listen(port, () => {
         Logger.log(`Application started on http://localhost:${port}`, 'Main');
