@@ -13,27 +13,30 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule, { cors: true });
     const configService = app.get(ConfigService);
     const port = configService.get<number>('PORT', 3000);
-    app.use(cookieParser());
-    app.setGlobalPrefix('api');
-    app.use(json({ limit: '100mb' }));
 
-    // Logger
+    app.use(cookieParser());
+    app.use(json());
+    app.use(compression());
+    app.setGlobalPrefix('api');
+
+    /** Logger */
     app.useLogger(WinstonModule.createLogger(LOGGER_CONFIG(APP_NAME())));
 
     /** Global validation */
     app.useGlobalPipes(new ValidationPipe());
 
+    /** Life cycle hooks */
     app.enableShutdownHooks();
 
-    app.use(compression());
-
+    /** App version */
     app.enableVersioning({
         type: VersioningType.HEADER,
-        header: 'X-Version',
+        header: 'App-Version',
+        defaultVersion: '1.0',
     });
 
     await app.listen(port, () => {
-        Logger.log(`Application started on http://localhost:${port}`, 'Main');
+        Logger.log(`Application started on http://localhost:${port}`, APP_NAME());
     });
 }
 bootstrap();
