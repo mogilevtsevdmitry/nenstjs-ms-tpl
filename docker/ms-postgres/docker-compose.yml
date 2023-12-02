@@ -17,6 +17,21 @@ services:
         networks:
             - ms_psql
         restart: unless-stopped
+    test_db:
+        container_name: test_postgres_container
+        build: postgres
+        environment:
+            POSTGRES_USER: test
+            POSTGRES_PASSWORD: test
+            POSTGRES_DB: test_db
+            PGDATA: /data/test-postgres
+        volumes:
+            - test_v_postgres:/data/test-postgres
+        ports:
+            - '5455:5432'
+        networks:
+            - ms_psql
+        restart: unless-stopped
 
 networks:
     ms_psql:
@@ -24,5 +39,6 @@ networks:
 
 volumes:
     ms_v_postgres:
+    test_v_postgres:
     ms_v_pgadmin:
         driver: local
