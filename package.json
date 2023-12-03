@@ -26,7 +26,8 @@
     "generate:event": "ddd-cli event",
     "seed": "ts-node prisma/seed.ts",
     "db:restart": "yarn docker:down && yarn docker:up && sleep 1 && dotenv -e .env.test -- prisma migrate reset --force",
-    "test:unit": ""
+    "test:int": "jest -i --no-cache --config ./test/int-e2e.json",
+    "test:unit": "jest -i --no-cache --config ./test/unit-e2e.json --env=./.env.test"
   },
   "dependencies": {
     "@golevelup/nestjs-rabbitmq": "^4.1.0",
