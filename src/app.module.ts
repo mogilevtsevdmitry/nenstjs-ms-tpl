@@ -16,6 +16,5 @@ import { PrismaModule } from './prisma/prisma.module';
         CommonModule,
         PrismaModule,
     ],
-    providers: [],
 })
 export class AppModule {}
